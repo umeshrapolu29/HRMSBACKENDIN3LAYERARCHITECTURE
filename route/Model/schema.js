@@ -9,6 +9,7 @@ var Schema1=Schema1({
        
     firstname:{type:String},
     lastname:{type:String},
+    
    
       
 })

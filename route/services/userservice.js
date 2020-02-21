@@ -30,8 +30,17 @@ var storage = multer.diskStorage({
   module.exports.uploaddata=((req,res)=>{
       var firstname=req.body.firstname;
       var lastname=req.body.lastname;
+      var email=req.body.email;
+       var password=req.body.password;
+        var file= 'http://localhost:3002/images/'+ req.file.originalname;
+        // var img2=req.body.imageproduct;
+        var DOJ=req.body.DOJ;
+        var phonenumber=req.body.phonenumber;
+        var gender=req.body.gender;
+        var DOB=req.body.DOB;   
+
       console.log(lastname,firstname+"at service")
-      userRepo.upload({firstname:firstname},{lastname:lastname},(err,data)=>{
+      userRepo.upload({firstname:firstname},{lastname:lastname},{email:email},{password:password},{file:file},{DOJ:DOJ},{phonenumber:phonenumber},{gender:gender},{DOB:DOB},(err,data)=>{
           res.json({
               "msg":"uploaded Successfull",
               "data":data

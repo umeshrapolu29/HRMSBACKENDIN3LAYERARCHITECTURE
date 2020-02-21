@@ -52,6 +52,6 @@ mongoose.connect(url,()=>{
 
 
 
-// app.listen(port,()=>{
-// console.log('Server is running at port'+ port)
-// })
+//  app.listen(3002,()=>{
+//  console.log('Server is running at port'+ 3002)
+//  })

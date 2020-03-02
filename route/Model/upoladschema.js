@@ -10,9 +10,9 @@ var uploadschema=uploadschema({
        
     firstname:{type:String},
     lastname:{type:String},
-    email:{type:String,required: true,unique: true},
+    email:{type:String},
     password:{type:String},
-    phone:{type:String},
+    phonenumber:{type:String},
     file:{type:String},
     DOJ:{type:String},
     DOB:{type:String},

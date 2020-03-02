@@ -99,6 +99,7 @@ var storage = multer.diskStorage({
     var status="NOT YET APPROVED";
     var fromdate=req.body.fromdate;
     var todate=req.body.todate;
+    var name=req.body.name;
     console.log(reason,reqtype,requestto,fromdate,todate+"at service");
     var transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -114,7 +115,7 @@ var storage = multer.diskStorage({
       subject: 'Leave request from '+requestto,
       
       
-      text: 'Dear manager'+('\n')+'Please grant me the '+reqtype+' leave for the reason of '+reason+' from the date '+fromdate+' to '+todate+'.'+('\n')+'Thanks and regards'+('\n')+requestto+'.'
+      text: 'Dear manager'+('\n')+'Please grant me the '+reqtype+' leave for the reason of '+reason+' from the date '+fromdate+' to '+todate+'.'+('\n')+'Thanks and regards'+('\n')+name+'.'
       
   };
    // console.log(details.title,details.description+"notice details")
@@ -128,7 +129,7 @@ var storage = multer.diskStorage({
 
 
 
-    userRepo.leaverequest({reason:reason},{reqtype:reqtype},{requestto:requestto},{status:status},{fromdate:fromdate},{todate:todate},(err,data)=>{
+    userRepo.leaverequest({reason:reason},{reqtype:reqtype},{requestto:requestto},{status:status},{fromdate:fromdate},{todate:todate},{name:name},(err,data)=>{
       res.json({
         "msg":"leave request data inserted",
         "data":data
@@ -228,6 +229,7 @@ module.exports.addholiday=((req,res)=>{
 })
 module.exports.viewholiday=((req,res)=>{
   var holidaytype=req.body.holidaytype;
+  console.log(holidaytype+"at service")
 
   userRepo.viewholiday({holidaytype:holidaytype},(err,data)=>{
     if(data){
@@ -251,6 +253,7 @@ module.exports.addnotice=((req,res)=>{
   var title=req.body.title;
   var description=req.body.description;
   var file= 'http://localhost:3002/images/'+ req.file.originalname;
+  console.log(date,title,description,file+"at service");
   userRepo.addnotice({date:date},{title:title},{description:description},{file:file},(err,data)=>{
     if(data){
       res.json({
@@ -321,6 +324,32 @@ module.exports.addiprocurement=(req,res)=>{
         "msg":"added Iprocumerent",
         "data":data
       })
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'sampathkumar0078@gmail.com',
+          pass: '$@mp@th586'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'sampathkumar0078@gmail.com',
+        to: 'umeshrapolu29@gmail.com',
+        subject:'Reimbursement request from '+employeename+',',
+        
+        
+        text: 'Dear manager'+('\n')+'Please approve me the reimbursement request for the item is '+item+' for the purpose of '+description+' with the transaction id '+email+' and the amount of this item is '+amount+'.'+('\n')+'Thanks and regards.'+('\n')+employeename+'.'
+        
+    };
+      //console.log(details.title,details.description+"notice details")
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent for update leave status111: ' + info.response);
+          res.send("success")
+        }
+      });
     }
     else{
       res.json({
@@ -359,6 +388,32 @@ module.exports.updatestatusiprocuremnt=((req,res)=>{
         "msg":"data retrived",
         "data":data
       })
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'sampathkumar0078@gmail.com',
+          pass: '$@mp@th586'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'sampathkumar0078@gmail.com',
+        to: 'umeshrapolu29@gmail.com',
+        subject: 'Reimbursement status',
+        
+        
+        text: 'Dear '+TID+','+('\n')+'Your reimbursement request has been '+astatus+'.'+('\n')+'Thanks and regards.'+('\n')+'Zyclyx'+'.'
+        
+    };
+      //console.log(details.title,details.description+"notice details")
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent for Reimbursement status: ' + info.response);
+        }
+      });
+
     }
     else{
       res.json({
@@ -369,4 +424,106 @@ module.exports.updatestatusiprocuremnt=((req,res)=>{
   })
 })
 
-  
+module.exports.getleavedata=((req,res)=>{
+  var name=req.body.name;
+  console.log(name+"at service")
+  userRepo.getleavedata({name:name},(err,data)=>{
+    if(data){
+      res.json({
+        "msg":"leavedata",
+        "data":data
+      })
+    }
+    else{
+      res.json({
+        "msg":" not getting leavedata",
+        "data":err
+      })
+    }
+  })
+})
+module.exports.getappovediprodata=((req,res)=>{
+  var email=req.body.email;
+  console.log(email+"at service");
+  userRepo.getapprovediprodata({email:email},(err,data)=>{
+    if(data){
+      res.json({
+        "msg":"data Retrived",
+        "data":data
+
+      })
+    }
+    else{
+      res.json({
+        "msg":"data  not Retrived",
+        "data":err
+
+      })
+    }
+  })
+})
+module.exports.getallemployeenames=((req,res)=>{
+  userRepo.getallemployeenames({},(err,data)=>{
+    if(data){
+      res.json({
+        "msg":"get names",
+        "data":data
+      })
+    }
+    else{
+      res.json({
+        "msg":" not get names",
+        "data":err
+      })
+    }
+
+  })
+})
+module.exports.uploadpayslips=((req,res)=>{
+  var email=req.body.email;
+  var file='http://localhost:3002/images/'+ req.file.originalname;
+  var month=req.body.month;
+  var year=req.body.year
+  console.log(email,file,month,year+"at service")
+  userRepo.uploadpayslips({email:email},{file:file},{month:month},{year:year},(err,data)=>{
+    if(data){
+      res.json({
+        "msg":"get names details",
+        "data":data
+      })
+    }
+    else{
+      res.json({
+        "msg":"get names details",
+        "data":err
+      })
+    }
+  })
+})
+  module.exports.getpayslips=((req,res)=>{
+    var email=req.body.email;
+    var month=req.body.month;
+    var year=req.body.year;
+    console.log(email,month,year+"ar service");
+    userRepo.getpayslips({email:email},{month:month},{year:year},(err,data)=>{
+      if(data){
+        res.json({
+          "msg":"get names",
+          "data":data
+        })
+      }
+      else{
+        res.json({
+          "msg":"get names",
+          "data":err
+        })
+      }
+    })
+  })
+  module.exports.downloadpayslips=((req,res)=>{
+    var email=req.body.email;
+    var month=req.body.month;
+    var year=req.body.year;
+    console.log(email,month,year+"ar service");
+    userRepo
+  })

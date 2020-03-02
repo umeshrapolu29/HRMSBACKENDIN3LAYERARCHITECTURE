@@ -33,6 +33,9 @@ route.post('/leaverequest',upload.single('file'),(req,res)=>{
 route.get('/getleaveemployee',upload.single('file'),(req,res)=>{
   return userservice.getleaveemployee(req,res);
 })
+route.post('/getleavedata',upload.single('file'),(req,res)=>{
+  return userservice.getleavedata(req,res);
+})
 route.post('/leaveupdate',upload.single('file'),(req,res)=>{
   return userservice.leaveupdate(req,res);
 
@@ -59,10 +62,25 @@ route.get('/viewnotice',upload.single('file'),(req,res)=>{
 route.post('/addiprocurement',upload.single('file'),(req,res)=>{
   return userservice.addiprocurement(req,res);
 })
-route.post('/getusernamesiprocurement',upload.single('file'),(req,res)=>{
+route.get('/getusernamesiprocurement',upload.single('file'),(req,res)=>{
   return userservice.getusernamesiprocurement(req,res)
 })
 route.post('/updatestatusiprocurement',upload.single('file'),(req,res)=>{
   return userservice.updatestatusiprocuremnt(req,res);
+})
+route.post('/getapprovediprodata',upload.single('file'),(req,res)=>{
+  return userservice.getappovediprodata(req,res);
+})
+route.get('/getallemployeenames',upload.single('file'),(req,res)=>{
+  return userservice.getallemployeenames(req,res);
+})
+route.post('/uploadpayslips',upload.single('file'),(req,res)=>{
+  return userservice.uploadpayslips(req,res);
+})
+route.post('/getpayslips',upload.single('file'),(req,res)=>{
+  return userservice.getpayslips(req,res);
+})
+route.post('/downloadpayslip',upload.single('file'),(req,res)=>{
+  return userservice
 })
  module.exports=route;

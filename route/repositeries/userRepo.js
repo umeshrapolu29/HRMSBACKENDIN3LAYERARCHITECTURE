@@ -5,6 +5,7 @@ var leaverequestschema=require('../Model/leaverequestschema');
 var holidayschema=require('../Model/holidayschema');
 var noticeboardschema=require('../Model/noticeboardschema');
 var iprocurementschema=require('../Model/iprocurementschema');
+var payslipschema=require('../Model/payslipschema');
 var nodemailer=require('nodemailer');
 
 module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,gender,DOB,callback)=>{
@@ -61,7 +62,10 @@ module.exports.getuserdata=(email,callback)=>{
 
 }
 // Leave Request.........................
-module.exports.leaverequest=(reason,reqtype,requestto,status,fromdate,todate,callback)=>{
+module.exports.leaverequest=(reason,reqtype,requestto,status,fromdate,todate,name,callback)=>{
+    leaverequestschema.find({"requestto":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+        console.log(regid+"result is");
     var reg=new leaverequestschema({
         reason:reason.reason,
         reqtype:reqtype.reqtype,
@@ -69,13 +73,20 @@ module.exports.leaverequest=(reason,reqtype,requestto,status,fromdate,todate,cal
         status:status.status,
         fromdate:fromdate.fromdate,
         todate:todate.todate,
+        name:name.name,
+        regid:regid
        
     })
     reg.save().then(result=>{
         callback(null,result);
     }).catch(error=>{
         callback(null,error);
+    }).catch(error=>{
+        callback(null,error);
     })
+
+
+})
 }
 module.exports.getleaveemployee=(callback)=>{
 
@@ -89,7 +100,7 @@ module.exports.getleaveemployee=(callback)=>{
 }
 module.exports.leaveupdate=(requestto, status,callback)=>{
     console.log(requestto,status);
-    leaverequestschema.updateOne({"requestto":requestto.requestto},{$set:{"status":status.status}}).then(result=>{
+    leaverequestschema.updateOne({"_id":requestto.requestto},{$set:{"status":status.status}}).then(result=>{
         callback(null,result);
         console.log(result);
     })
@@ -98,7 +109,7 @@ module.exports.leaveupdate=(requestto, status,callback)=>{
     })
 }
 module.exports.leaveapproveddata=(requestto,callback)=>{
-    leaverequestschema.findOne(requestto).then(result=>{
+    leaverequestschema.findOne(requestto).sort( { regid: -1 } ).then(result=>{
         callback(null,result);
         console.log(result);
     })
@@ -107,7 +118,8 @@ module.exports.leaveapproveddata=(requestto,callback)=>{
     })
 }
 module.exports.addholiday=(date,reason,holidaytype,dayofweek,callback)=>{
-    console.log(date,reason,holidaytype,dayofweek+"at repo")
+    console.log(date,reason,holidaytype,dayofweek)
+    
     var reg=new holidayschema({
         date:date.date,
         reason:reason.reason,
@@ -126,7 +138,7 @@ module.exports.addholiday=(date,reason,holidaytype,dayofweek,callback)=>{
 
 }
 module.exports.viewholiday=(holidaytype,callback)=>{
-    holidayschema.findOne(holidaytype).then(result=>{
+    holidayschema.find(holidaytype).then(result=>{
         callback(null,result);
         console.log(result)
     }).catch(error=>{
@@ -203,7 +215,8 @@ module.exports.addiprocuremnt=(item,description,amount,file,status,astatus,email
 })
 }
 module.exports.getusernamesiprocurement=(astatus,callback)=>{
-    iprocurementschema.findOne({"astatus":astatus.astatus}).then(result=>{
+    console.log(astatus+"at repo");
+    iprocurementschema.find({"astatus":astatus.astatus}).then(result=>{
         callback(null,result)
         console.log(result)
     }).catch(error=>{
@@ -219,4 +232,73 @@ module.exports.upadatestatusiprocurement=(TID,astatus,callback)=>{
     .catch(error=>{
         callback(null,error)
     })
+}
+module.exports.getleavedata=(name,callback)=>{
+    console.log(name+"at repo")
+    leaverequestschema.find({'status':{$eq:"NOT YET APPROVED"},"name":name.name}).sort( { regid: -1 } ).then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error)
+
+    })
+}
+module.exports.getapprovediprodata=(email,callback)=>{
+    console.log(email+"at repo");
+    iprocurementschema.find({"email":email.email}).then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+
+    }
+module.exports.getallemployeenames=(req,callback)=>{
+    uploadschema.find({}).then(result=>{
+        callback(null,result);
+        console.log(result);
+    })
+    .catch(error=>{
+        callback(null,error);
+    })
+}
+module.exports.uploadpayslips=(email,file,month,year,callback)=>{
+    console.log(email,file,month,year+"at service")
+    var reg=new payslipschema({
+        email:email.email,
+        file:file.file,
+        month:month.month,
+        year:year.year
+
+
+    })
+    reg.save().then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+    .catch(error=>{
+          callback(null,error);
+      })
+
+}
+module.exports.getpayslips=(email,month,year,callback)=>{
+    console.log(email,month,year+"ar repo");
+    payslipschema.find({$and:[{"email":email.email},{"month":month.month},{"year":year.year}]}).then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+}
+module.exports.downloadpayslips=(email,month,year,callback)=>{
+console.log(email,month,year+"ar repo");
+payslipschema.find({$and:[{"email":email.email},{"month":month.month},{"year":year.year}]}).then(result=>{
+    callback(null,result);
+    console.log(result);
+}).catch(error=>{
+    callback(null,error);
+})
+
 }

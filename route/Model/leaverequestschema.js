@@ -7,7 +7,9 @@ var leaverequestschema=leaverequestschema({
     requestto:{type:String},
     status:{type:String},
     fromdate:{type:String},
-    todate:{type:String}
+    todate:{type:String},
+    name:{type:String},
+    regid:{type:String},
 })
 module.exports=mongoose.model('leaverequestschema',leaverequestschema)
 

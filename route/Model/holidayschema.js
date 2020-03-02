@@ -1,5 +1,5 @@
 var mongoose=require('mongoose');
-var holidaychema=mongoose.Schema;
+var holidayschema=mongoose.Schema;
 
 var holidayschema=holidayschema({
     date:{type:String},

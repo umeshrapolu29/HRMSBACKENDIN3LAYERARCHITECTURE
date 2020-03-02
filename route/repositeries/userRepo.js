@@ -10,6 +10,15 @@ var nodemailer=require('nodemailer');
 
 module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,gender,DOB,callback)=>{
     console.log(firstname,lastname+"at repo")
+    uploadschema.find({"email":{$ne:null}}).then(result=>{
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var regid=Object.keys(result).length;
+        console.log(regid+"result is");
+        
+        var fullid = "ZYX_" + year + "_" + month + "_" + regid;
+        console.log(fullid + " full id");
     
     var reg=new uploadschema({
         firstname:firstname.firstname,
@@ -20,7 +29,8 @@ module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,g
         DOJ:DOJ.DOJ,
         phonenumber:phonenumber.phonenumber,
         gender:gender.gender,
-        DOB:DOB.DOB
+        DOB:DOB.DOB,
+        fullid:fullid.fullid
 
       
      
@@ -35,6 +45,9 @@ module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,g
     }).catch(error=>{
         callback(null,error)
     })
+}).catch(error=>{
+    callback(null,error);
+})
 
 }
 module.exports.login=(email,callback)=>{

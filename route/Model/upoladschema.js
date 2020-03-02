@@ -16,7 +16,8 @@ var uploadschema=uploadschema({
     file:{type:String},
     DOJ:{type:String},
     DOB:{type:String},
-    gender:{type:String}
+    gender:{type:String},
+    fullid:{type:String},
     
    
       

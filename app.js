@@ -6,7 +6,8 @@ var mongoose=require('mongoose');
  var url=db.url
  var app=express();
  var route=express.Router();
-var server = app.listen(3002)
+ const PORT = process.env.PORT || 3000;
+var server = app.listen(PORT)
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use("/public", express.static('public'))
 

@@ -37,7 +37,7 @@ var storage = multer.diskStorage({
       var lastname=req.body.lastname;
       var email=req.body.email;
        var password=req.body.password;
-        var file= 'http://localhost:3002/images/'+ req.file.originalname;
+        var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
         // var img2=req.body.imageproduct;
         var DOJ=req.body.DOJ;
         var phonenumber=req.body.phonenumber;
@@ -269,7 +269,7 @@ module.exports.addnotice=((req,res)=>{
   var date=req.body.date;
   var title=req.body.title;
   var description=req.body.description;
-  var file= 'http://localhost:3002/images/'+ req.file.originalname;
+  var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
   console.log(date,title,description,file+"at service");
   userRepo.addnotice({date:date},{title:title},{description:description},{file:file},(err,data)=>{
     if(data){

@@ -7,7 +7,8 @@ var noticeboardschema=require('../Model/noticeboardschema');
 var iprocurementschema=require('../Model/iprocurementschema');
 var payslipschema=require('../Model/payslipschema');
 var nodemailer=require('nodemailer');
-
+var attendenceschema=require('../Model/attendenceshema');
+var adminschema=require('../Model/adminschema');
 module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,gender,DOB,callback)=>{
     console.log(firstname,lastname+"at repo")
     uploadschema.find({"email":{$ne:null}}).then(result=>{
@@ -30,7 +31,7 @@ module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,g
         phonenumber:phonenumber.phonenumber,
         gender:gender.gender,
         DOB:DOB.DOB,
-        fullid:fullid.fullid
+        fullid:fullid
 
       
      
@@ -130,14 +131,14 @@ module.exports.leaveapproveddata=(requestto,callback)=>{
         callback(null,error)
     })
 }
-module.exports.addholiday=(date,reason,holidaytype,dayofweek,callback)=>{
-    console.log(date,reason,holidaytype,dayofweek)
+module.exports.addholiday=(date,reason,holidaytype,dayofname,callback)=>{
+    console.log(date,reason,holidaytype,dayofname)
     
     var reg=new holidayschema({
         date:date.date,
         reason:reason.reason,
         holidaytype:holidaytype.holidaytype,
-        dayofweek:dayofweek.dayofweek
+        dayofweek:dayofname.dayofname
         
 
       
@@ -159,11 +160,16 @@ module.exports.viewholiday=(holidaytype,callback)=>{
     })
 }
 module.exports.addnotice=(date,title,description,file,callback)=>{
+    var regid=1;
+    noticeboardschema.find({"title":{$ne:null}}).then(result=>{
+         regid=regid+Object.keys(result).length;
+        
      var reg=new noticeboardschema({
         date:date.date,
         title:title.title,
         description:description.description,
-        file:file.file
+        file:file.file,
+        rig:regid
      })
      reg.save().then(result=>{
          callback(null,result);
@@ -171,6 +177,12 @@ module.exports.addnotice=(date,title,description,file,callback)=>{
      }).catch(error=>{
          callback(null,error);
      })
+     .catch(error=>{
+        callback(null,error);
+    })
+
+
+})
 }
 module.exports.removenotice=(title,callback)=>{
     noticeboardschema.remove({"title":title.title}).then(result=>{
@@ -210,7 +222,8 @@ module.exports.addiprocuremnt=(item,description,amount,file,status,astatus,email
         astatus:astatus.astatus,
         email:email.email,
         employeename:employeename.employeename,
-        TID:tid
+        TID:tid,
+        rig:regid,
         
         
      })
@@ -309,9 +322,69 @@ module.exports.downloadpayslips=(email,month,year,callback)=>{
 console.log(email,month,year+"ar repo");
 payslipschema.find({$and:[{"email":email.email},{"month":month.month},{"year":year.year}]}).then(result=>{
     callback(null,result);
+    var file=result;
+    console.log(file)
+    // var jsonObj = JSON.parse(file);
+    // console.log(jsonObj)
+  
+
     console.log(result);
 }).catch(error=>{
     callback(null,error);
 })
+
+}
+module.exports.attendence=(email,status,callback)=>{
+    var today = new Date();
+    console.log(today||	yyyy-mm-dd);
+    console.log(today.toISOString().slice(0,10));
+
+    var date=today.toISOString().slice(0,10)
+
+    var reg=new attendenceschema({
+        email:email.email,
+        status:status.status,
+        date:date,
+
+       
+
+
+    })
+    reg.save().then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+
+}
+module.exports.admin=(firstname,lastname,email,password,callback)=>{
+    console.log(firstname,lastname,email,password+"at repo")
+    var reg=new adminschema({
+        firstname:firstname.firstname,
+        lastname:lastname.lastname,
+        email:email.email,
+        password:password.password
+        
+
+      
+       
+    })
+    reg.save().then(result=>{
+        callback(null,result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+
+}
+module.exports.adminlogin=(email,callback)=>{
+    console.log(email+"at repo")
+    adminschema.findOne(email).then(result=>{
+        callback(null,result);
+        console.log(result);
+    })
+    .catch(error=>{
+        callback(null,error)
+    })
 
 }

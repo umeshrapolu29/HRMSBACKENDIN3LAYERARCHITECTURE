@@ -81,6 +81,16 @@ route.post('/getpayslips',upload.single('file'),(req,res)=>{
   return userservice.getpayslips(req,res);
 })
 route.post('/downloadpayslip',upload.single('file'),(req,res)=>{
-  return userservice
+  return userservice.downloadpayslips(req,res);
+})
+route.post('/attendence',upload.single('file'),(req,res)=>{
+  return userservice.attendence(req,res);
+
+})
+route.post('/admin',upload.single('file'),(req,res)=>{
+  return userservice.admin(req,res);
+})
+route.post('/adminlogin',upload.single('file'),(req,res)=>{
+  return userservice.adminlogin(req,res);
 })
  module.exports=route;

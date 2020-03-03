@@ -3,6 +3,7 @@ var userRepo=require('../repositeries/userRepo');
 var mongoose=require('mongoose');
 var app=express();
 var db=require('../Database/db');
+const fs = require('fs');
 var nodemailer=require('nodemailer');
 var url=db.url
 var app = express();
@@ -93,6 +94,7 @@ var storage = multer.diskStorage({
      })
   })
   module.exports.leaverequest=((req,res)=>{
+    var emailto=req.body.emailto;
     var reason=req.body.reason;
     var reqtype=req.body.reqtype;
     var requestto=req.body.requestto;
@@ -100,7 +102,7 @@ var storage = multer.diskStorage({
     var fromdate=req.body.fromdate;
     var todate=req.body.todate;
     var name=req.body.name;
-    console.log(reason,reqtype,requestto,fromdate,todate+"at service");
+    console.log(reason,reqtype,requestto,fromdate,todate,emailto+"at service");
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -115,7 +117,7 @@ var storage = multer.diskStorage({
       subject: 'Leave request from '+requestto,
       
       
-      text: 'Dear manager'+('\n')+'Please grant me the '+reqtype+' leave for the reason of '+reason+' from the date '+fromdate+' to '+todate+'.'+('\n')+'Thanks and regards'+('\n')+name+'.'
+      text: 'Dear  '+emailto+''+('\n')+'Please grant me the '+reqtype+' leave for the reason of '+reason+' from the date '+fromdate+' to '+todate+'.'+('\n')+'Thanks and regards'+('\n')+name+'.'
       
   };
    // console.log(details.title,details.description+"notice details")
@@ -147,7 +149,8 @@ var storage = multer.diskStorage({
   module.exports.leaveupdate=((req,res)=>{
     var status=req.body.status;
     var requestto=req.body.requestto
-    console.log(requestto+"at service");
+    var name=req.body.name;
+    console.log(requestto,name+"at service");
     userRepo.leaveupdate({requestto:requestto},{status:status},(err,data)=>{
       if(data){
       res.json({
@@ -170,7 +173,7 @@ var storage = multer.diskStorage({
         subject: 'Leave status',
         
         
-        text: 'Dear '+requestto+','+('\n')+'Your leave request has been '+status+'.'+('\n')+'Thanks and regards.'+('\n')+'Zyclyx'+'.'
+        text: 'Dear '+name+','+('\n')+'Your leave request has been '+status+'.'+('\n')+'Thanks and regards.'+('\n')+'Zyclyx'+'.'
         
     };
       //console.log(details.title,details.description+"notice details")
@@ -210,9 +213,23 @@ module.exports.addholiday=((req,res)=>{
   var reason=req.body.reason;
   var holidaytype=req.body.holidaytype;
   var dayofweek=req.body.dayofweek;
+  // var year = date.getFullYear();
+  // var day = date.getDay();
+  // var mon = date.getMonth() + 1;
+  // console.log(year,mon,day+"day is")
+  var date1 = new Date(date);
+  console.log(date1+"date is")
+console.log(date1.toLocaleString('en-US', {
+      weekday: 'long',
+  
+    }));
+    var dayofname=date1.toLocaleString('en-US', {
+      weekday: 'long'})
+      console.log(dayofname+"name is")
+
   console.log(date,reason,holidaytype,dayofweek+"at servive")
 
-  userRepo.addholiday({date:date},{reason:reason},{holidaytype:holidaytype},{dayofweek:dayofweek},(err,data)=>{
+  userRepo.addholiday({date:date},{reason:reason},{holidaytype:holidaytype},{dayofname:dayofname},(err,data)=>{
     if(data){
       res.json({
         "msg":"addholiday data inserted",
@@ -480,17 +497,53 @@ module.exports.getallemployeenames=((req,res)=>{
   })
 })
 module.exports.uploadpayslips=((req,res)=>{
+  var name=req.body.name;
   var email=req.body.email;
   var file='http://localhost:3002/images/'+ req.file.originalname;
+  const resume = req.file.originalname;
   var month=req.body.month;
   var year=req.body.year
-  console.log(email,file,month,year+"at service")
+  console.log(email,file,month,year,resume+"at service")
   userRepo.uploadpayslips({email:email},{file:file},{month:month},{year:year},(err,data)=>{
     if(data){
       res.json({
         "msg":"get names details",
         "data":data
       })
+ 
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      secure: 'false',
+      port: '25',
+      auth: {
+        user: 'sampathkumar0078@gmail.com',
+        pass: '$@mp@th586'
+      },
+      tls: {
+        rejectUnauthorized: false
+    },
+  
+    });
+  
+    
+    var mailOptions = {
+      from: 'sampathkumar0078@gmail.com',
+      to: 'umeshrapolu29@gmail.com',
+      subject: 'Uploaded Payslip',
+      
+      
+      text: 'Dear '+email+','+'\n'+'Please find the attached payslip for the month of '+month+'-'+year+''+'\n'+'Thanks and regards.'+('\n')+'Zyclyx'+'.',
+       attachments: [{ filename: resume, content: fs.createReadStream(`./uploads/images/${resume}`) }]
+      
+  };
+    //console.log(details.title,details.description+"notice details")
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent for Reimbursement status: ' + info.response);
+      }
+    });
     }
     else{
       res.json({
@@ -525,5 +578,83 @@ module.exports.uploadpayslips=((req,res)=>{
     var month=req.body.month;
     var year=req.body.year;
     console.log(email,month,year+"ar service");
-    userRepo
+    userRepo.downloadpayslips({email,email},{month,month},{year,year},(err,data)=>{
+      if(data){
+        res.json({
+          "msg":"download payslips",
+          "data":data
+        })
+        
+      }
+      else{
+        res.json({
+          "msg":"error in downloadpayslips",
+          "data":err
+        })
+      }
+    })
+  })
+  module.exports.attendence=((req,res)=>{
+    var email= req.body.email;
+    var status=req.body.status;
+    userRepo.attendence({email:email},{status:status},(err,data)=>{
+      if(data){
+        res.json({
+          "msg":"data retrived",
+          "data":data
+        })
+      }
+      else{
+        res.json({
+          "msg":"data retrived",
+          "data":err
+        })
+      }
+    })
+  })
+  module.exports.admin=((req,res)=>{
+    var firstname=req.body.firstname;
+    var lastname=req.body.lastname;
+    var email=req.body.email;
+    var password=req.body.password;
+    console.log(firstname,lastname,email,password+"at service")
+    userRepo.admin({firstname:firstname},{lastname:lastname},{email:email},{password:password},(err,data)=>{
+      if(data){
+        res.json({
+          "msg":"admin register successfully",
+          "data":data
+        })
+      }
+      else{
+        res.json({
+          "msg":"admin register Failed",
+          "data":err
+        })
+      }
+    })
+  })
+  module.exports.adminlogin=((req,res)=>{
+    var email=req.body.email;
+    var password=req.body.password;
+    var pass;
+    console.log(email,password+"at service")
+
+    userRepo.adminlogin({email:email},(err,data)=>{
+      pass=data.password
+      console.log(pass);
+
+      if(password==pass){
+
+      res.json({
+        "msg":"login successfull",
+        "data":data
+      })
+    }
+    else{
+      res.json({
+        "msg":"login failed",
+        "data":data
+      })
+    }
+    })
   })

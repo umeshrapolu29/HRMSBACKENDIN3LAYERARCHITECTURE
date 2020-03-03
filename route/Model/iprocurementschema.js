@@ -10,6 +10,7 @@ var iprocurementschema=iprocurementschema({
     astatus:{type:String},
     email:{type:String},
     employeename:{type:String},
-    TID:{type:String}
+    TID:{type:String},
+    rig:{type:String}
 })
 module.exports=mongoose.model('iprocurementschema',iprocurementschema)

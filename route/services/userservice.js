@@ -328,7 +328,7 @@ module.exports.addiprocurement=(req,res)=>{
   var item= req.body.item;
   var description=req.body.description;
   var amount=req.body.amount;
-  var file= 'http://localhost:3002/images/'+ req.file.originalname;
+  var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
   var status="false";
   var astatus="Not yet approved";
   var email=req.body.email;
@@ -499,7 +499,7 @@ module.exports.getallemployeenames=((req,res)=>{
 module.exports.uploadpayslips=((req,res)=>{
   var name=req.body.name;
   var email=req.body.email;
-  var file='http://localhost:3002/images/'+ req.file.originalname;
+  var file='https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
   const resume = req.file.originalname;
   var month=req.body.month;
   var year=req.body.year

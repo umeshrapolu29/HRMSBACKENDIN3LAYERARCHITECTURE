@@ -3,6 +3,10 @@ var userRepo=require('../repositeries/userRepo');
 var mongoose=require('mongoose');
 var app=express();
 var db=require('../Database/db');
+const dotenv=require()
+dotenv.config();
+const user = process.env.USER;
+const password = process.env.PASSWORD;
 const fs = require('fs');
 var nodemailer=require('nodemailer');
 var url=db.url
@@ -106,8 +110,8 @@ var storage = multer.diskStorage({
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'sampathkumar0078@gmail.com',
-        pass: '$@mp@th586'
+        user: user,
+        pass: password
       }
     });
     
@@ -344,8 +348,8 @@ module.exports.addiprocurement=(req,res)=>{
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'sampathkumar0078@gmail.com',
-          pass: '$@mp@th586'
+          user: user,
+        pass: password
         }
       });
       
@@ -408,8 +412,8 @@ module.exports.updatestatusiprocuremnt=((req,res)=>{
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'sampathkumar0078@gmail.com',
-          pass: '$@mp@th586'
+          user: user,
+          pass: password
         }
       });
       
@@ -516,8 +520,8 @@ module.exports.uploadpayslips=((req,res)=>{
       secure: 'false',
       port: '25',
       auth: {
-        user: 'sampathkumar0078@gmail.com',
-        pass: '$@mp@th586'
+        user: user,
+        pass: password
       },
       tls: {
         rejectUnauthorized: false

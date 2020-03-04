@@ -1,6 +1,10 @@
 var express=require('express');
 var mongoose=require('mongoose');
- var db=require('./route/Database/db')
+ var db=require('./route/Database/db');
+ const dotenv=require('dotenv');
+ dotenv.config();
+ const user = process.env.USER;
+const password = process.env.PASSWORD;
  const path = require('path');
  var cors = require('cors');
  var url=db.url

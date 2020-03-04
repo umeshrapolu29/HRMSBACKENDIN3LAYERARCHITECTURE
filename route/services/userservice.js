@@ -3,7 +3,7 @@ var userRepo=require('../repositeries/userRepo');
 var mongoose=require('mongoose');
 var app=express();
 var db=require('../Database/db');
-const dotenv=require()
+const dotenv=require('dotenv')
 dotenv.config();
 const user = process.env.USER;
 const password = process.env.PASSWORD;

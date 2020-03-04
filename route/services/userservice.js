@@ -106,12 +106,13 @@ var storage = multer.diskStorage({
     var fromdate=req.body.fromdate;
     var todate=req.body.todate;
     var name=req.body.name;
+    console.log(user,password+"user password");
     console.log(reason,reqtype,requestto,fromdate,todate,emailto+"at service");
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.USER,
-        pass: process.env.PASSWORD
+        user:'sandeep.reddy@zyclyx.com',
+        pass: 'cweaaodfhejidcga'
       }
     });
     
@@ -121,7 +122,7 @@ var storage = multer.diskStorage({
       subject: 'Leave request from '+requestto,
       
       
-      text: 'Dear  '+emailto+''+('\n')+'Please grant me the '+reqtype+' leave for the reason of '+reason+' from the date '+fromdate+' to '+todate+'.'+('\n')+'Thanks and regards'+('\n')+name+'.'
+      text: 'Dear  '+reason+''+('\n')+'Please grant me the '+reason+' leave for the reason of '+reason+' from the date '+reason+' to '+reason+'.'+('\n')+'Thanks and regards'+('\n')+name+'.'
       
   };
    // console.log(details.title,details.description+"notice details")

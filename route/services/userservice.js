@@ -658,3 +658,21 @@ module.exports.uploadpayslips=((req,res)=>{
     }
     })
   })
+  module.exports.getiprocurementdata=((req,res)=>{
+    var tid=req.body.tid;
+    console.log(tid+"at service")
+    userRepo.getiprocurementdata({tid:tid},(err,data)=>{
+      if(data){
+        res.json({
+          "msg":"data retived",
+          "data":data
+        })
+      }
+      else{
+        res.json({
+          "msg":"data not retived",
+          "data":err
+        })
+      }
+    })
+  })

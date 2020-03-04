@@ -388,3 +388,15 @@ module.exports.adminlogin=(email,callback)=>{
     })
 
 }
+module.exports.getiprocurementdata=(tid,callback)=>{
+    console.log(tid)
+
+    iprocurementschema.findOne({'astatus':{$eq:"Not yet approved"},"TID":tid.tid}).then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error)
+
+    })
+
+}

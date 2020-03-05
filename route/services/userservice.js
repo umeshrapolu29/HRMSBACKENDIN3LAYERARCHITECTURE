@@ -107,7 +107,7 @@ var storage = multer.diskStorage({
     var todate=req.body.todate;
     var name=req.body.name;
     console.log(user,password+"user password");
-    console.log(reason,reqtype,requestto,fromdate,todate,emailto+"at service");
+    console.log(reason,reqtype,requestto,fromdate,todate,emailto1+"at service");
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {

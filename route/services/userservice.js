@@ -50,10 +50,44 @@ var storage = multer.diskStorage({
 
       console.log(lastname,firstname,password,gender,file,DOJ,DOB,phonenumber+"at service")
       userRepo.upload({firstname:firstname},{lastname:lastname},{email:email},{password:password},{file:file},{DOJ:DOJ},{phonenumber:phonenumber},{gender:gender},{DOB:DOB},(err,data)=>{
-          res.json({
+        if(data){
+        res.json({
               "msg":"uploaded Successfull",
               "data":data
           })
+          var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user:'sandeep.reddy@zyclyx.com',
+              pass: 'cweaaodfhejidcga'
+            }
+          });
+          
+          var mailOptions = {
+            from: 'sampathkumar0078@gmail.com',
+            to: 'umeshrapolu29@gmail.com',
+            subject: ' Registration Process',
+            
+            
+            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n')+'UserName:'+email+ +('\n')+'Password:'+password+'Thanks and regards.'+('\n\n')+' HR Operations.'
+            
+        };
+         // console.log(details.title,details.description+"notice details")
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent for Leave request: ' + info.response);
+            }
+          });
+
+        }else{
+          res.json({
+            "msg":"uploaded failed",
+            "data":err
+        })
+
+        }
       })
 
 

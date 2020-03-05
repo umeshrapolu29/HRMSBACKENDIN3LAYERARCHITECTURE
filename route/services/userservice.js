@@ -178,7 +178,8 @@ var storage = multer.diskStorage({
         subject: 'Leave status',
         
         
-        text: 'Dear '+name+','+('\n')+'Your leave request has been '+status+'.'+('\n')+'Thanks and regards.'+('\n')+'Zyclyx'+'.'
+        text: 'Dear '+name+','+('\n\n')+'Your leave request has been '+status+'.'+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',
+        // attachments: [{ filename: resume, content: fs.createReadStream(`./uploads/images/${resume}`) }]
         
     };
       //console.log(details.title,details.description+"notice details")

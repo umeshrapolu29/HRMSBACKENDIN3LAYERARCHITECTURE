@@ -122,7 +122,7 @@ var storage = multer.diskStorage({
       subject: 'Leave request from '+requestto,
       
       
-      text: 'Dear  '+emailto1+''+('\n')+'Please grant me the '+reason+' leave for the reason of '+reason+' from the date '+reason+' to '+reason+'.'+('\n')+'Thanks and regards'+('\n')+name+'.'
+      text: 'Dear  '+emailto1+''+('\n')+'Please grant me the '+reqtype+' leave for the reason of '+reason+' from the date '+fromdate+' to '+todate+'.'+('\n')+'Thanks and regards'+('\n')+name+'.'
       
   };
    // console.log(details.title,details.description+"notice details")

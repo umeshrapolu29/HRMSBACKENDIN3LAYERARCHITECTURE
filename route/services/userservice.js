@@ -328,7 +328,7 @@ module.exports.addnotice=((req,res)=>{
       var mailOptions = {
         from: 'sampathkumar0078@gmail.com',
         to: 'umeshrapolu29@gmail.com',
-        subject: 'New Notification',
+        subject: 'New Notification-'+title,
         
         
         text: 'Dears, '+('\n\n')+'You have a new notification..!'+('\n\n')+description+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',

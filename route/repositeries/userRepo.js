@@ -400,3 +400,64 @@ module.exports.getiprocurementdata=(tid,callback)=>{
     })
 
 }
+module.exports.storetoken=((fmail,string1,callback)=>{
+    console.log(fmail,string1+"at repo");
+
+    // Schema.updateOne({"_id":id.id},{$set:{passwordtoken:string.string}}).then(result=>{
+    //     callback(null,result);
+    // }).catch(error=>{
+    //     callback(null,error);
+    // })
+    uploadschema.updateOne({"email":fmail.fmail},{$set:{passwordtoken:string1.string1}}).then(result=>{
+        callback(null,result);
+
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+ })
+ module.exports.resetpassword=((fmail,token1,updatepassword,callback)=>{
+    console.log(token1,updatepassword,fmail+"at repo")
+    uploadschema.find({email:fmail.fmail}).then(result=>{
+        
+        
+
+        var token=result[0].passwordtoken
+
+        console.log(token);
+        console.log(token1);
+
+        if(token==token1)
+        {
+            uploadschema.updateOne({"email":fmail.fmail},{$set:{password:updatepassword.updatepassword}}).then(result=>{
+                callback(null,result);
+
+            }).catch(error=>{
+                callback(null,error);
+            })
+        }
+        else{
+            console.log("not matched")
+            callback(null,error);
+        }
+
+
+
+
+
+    }).catch(error=>{
+        callback(null,error)
+    })
+
+
+
+
+
+    
+ 
+    
+
+  
+
+
+})

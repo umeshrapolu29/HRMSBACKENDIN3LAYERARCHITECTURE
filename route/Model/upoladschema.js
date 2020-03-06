@@ -18,6 +18,7 @@ var uploadschema=uploadschema({
     DOB:{type:String},
     gender:{type:String},
     fullid:{type:String},
+    passwordtoken:{type:String},
     
    
       

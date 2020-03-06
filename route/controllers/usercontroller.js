@@ -96,4 +96,10 @@ route.post('/adminlogin',upload.single('file'),(req,res)=>{
 route.post('/getiprocurementdata',upload.single('file'),(req,res)=>{
   return userservice.getiprocurementdata(req,res);
 })
+route.post('/forgotpassword',upload.single('file'),(req,res)=>{
+  return userservice.forgotpassword(req,res);
+})
+route.post('/resetpassword',upload.single(),(req,res)=>{
+  return userservice.resetpassword(req,res);
+})
  module.exports=route;

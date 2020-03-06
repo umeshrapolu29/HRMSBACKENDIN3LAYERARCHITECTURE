@@ -4,6 +4,7 @@ var mongoose=require('mongoose');
 var app=express();
 var db=require('../Database/db');
 const dotenv=require('dotenv')
+var randomstring=require('randomstring');
 dotenv.config();
 const user = process.env.USER;
 const password = process.env.PASSWORD;
@@ -684,7 +685,7 @@ module.exports.uploadpayslips=((req,res)=>{
     var lastname=req.body.lastname;
     var email=req.body.email;
     var password=req.body.password;
-    console.log(firstname,lastname,email,password+"at service")
+    console.log(firstname,lastname,email,password+" at service")
     userRepo.admin({firstname:firstname},{lastname:lastname},{email:email},{password:password},(err,data)=>{
       if(data){
         res.json({
@@ -743,3 +744,64 @@ module.exports.uploadpayslips=((req,res)=>{
       }
     })
   })
+  module.exports.forgotpassword=((req,res)=>{
+    string=randomstring.generate(7);
+    console.log(string+"is")
+    var string1=string;
+    var fmail=req.body.fmail;
+    var  smtptransport=nodemailer.createTransport({
+      service:'gmail',
+      auth:{
+        user:'sandeep.reddy@zyclyx.com',
+        pass: 'cweaaodfhejidcga'
+      }
+  });
+  var mailOption={
+      to:'umeshrapolu29@gmail.com',
+      from:'umeshrapolu29@gmail.com',
+      subject:'reset password',
+      text:'change password\n\n'+string,  
+  };
+  smtptransport.sendMail(mailOption,function(err,data){
+      if(err){
+      console.log("mail not sent");
+      console.log(err);
+      }
+      else{
+          console.log("mail sent");
+          // res.json({
+          //     "msg":"Token Sent to Email",
+              
+          // })
+          console.log(string1 + "at service1")
+          userRepo.storetoken({fmail:fmail},{string1:string1},(req,data)=>{
+              res.json({
+                  "msg":"password updated",
+                  "data":data
+              })
+          })
+    
+         
+       
+      }
+  })
+
+  })
+  module.exports.resetpassword=((req,res)=>{
+    var token1=req.body.token1
+    var updatepassword=req.body.updatepassword
+     var fmail=req.body.fmail;
+    
+    
+  
+  
+    var string1=string;
+    console.log(fmail+"is")
+    console.log(token1,updatepassword ,fmail+ "at service")
+    userRepo.resetpassword({fmail:fmail},token1,{updatepassword:updatepassword},(req,result)=>{
+        res.json({
+            "msg":"password updated",
+            "data":result
+        })
+     })
+    })

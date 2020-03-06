@@ -69,7 +69,7 @@ var storage = multer.diskStorage({
             subject: ' Registration Process',
             
             
-            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n\n')+'UserName:'+email+('\n')+'Password:'+password+ +('\n')+ 'Thanks and regards.'+('\n\n')+' HR Operations.'
+            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n\n')+'UserName:'+email+('\n')+'Password:'+password+('\n')+ 'Thanks and regards.'+('\n\n')+' HR Operations.'
             
         };
          // console.log(details.title,details.description+"notice details")
@@ -328,10 +328,10 @@ module.exports.addnotice=((req,res)=>{
       var mailOptions = {
         from: 'sampathkumar0078@gmail.com',
         to: 'umeshrapolu29@gmail.com',
-        subject: 'Notific',
+        subject: 'New Notification',
         
         
-        text: 'Dear '+name+','+('\n\n')+'Your leave request has been '+status+'.'+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',
+        text: 'Dears, '+('\n\n')+'You have a new notification..!'+('\n\n')+description+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',
         // attachments: [{ filename: resume, content: fs.createReadStream(`./uploads/images/${resume}`) }]
         
     };

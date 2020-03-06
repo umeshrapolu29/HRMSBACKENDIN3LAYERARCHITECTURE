@@ -69,7 +69,7 @@ var storage = multer.diskStorage({
             subject: ' Registration Process',
             
             
-            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n')+'UserName:'+email+ +('\n')+'Password:'+password+'Thanks and regards.'+('\n\n')+' HR Operations.'
+            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n\n')+'UserName:'+email+ +('\n\n')+'Password:'+password+'Thanks and regards.'+('\n\n')+' HR Operations.'
             
         };
          // console.log(details.title,details.description+"notice details")
@@ -384,8 +384,8 @@ module.exports.addiprocurement=(req,res)=>{
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: user,
-        pass: password
+          user:'sandeep.reddy@zyclyx.com',
+          pass: 'cweaaodfhejidcga'
         }
       });
       
@@ -448,8 +448,8 @@ module.exports.updatestatusiprocuremnt=((req,res)=>{
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: user,
-          pass: password
+          user:'sandeep.reddy@zyclyx.com',
+          pass: 'cweaaodfhejidcga'
         }
       });
       
@@ -556,8 +556,8 @@ module.exports.uploadpayslips=((req,res)=>{
       secure: 'false',
       port: '25',
       auth: {
-        user: user,
-        pass: password
+        user:'sandeep.reddy@zyclyx.com',
+        pass: 'cweaaodfhejidcga'
       },
       tls: {
         rejectUnauthorized: false

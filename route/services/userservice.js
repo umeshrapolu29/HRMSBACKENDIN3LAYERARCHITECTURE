@@ -69,7 +69,7 @@ var storage = multer.diskStorage({
             subject: ' Registration Process',
             
             
-            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n\n')+'UserName:'+email+ +('\n\n')+'Password:'+password+ +('\n\n')+ 'Thanks and regards.'+('\n\n')+' HR Operations.'
+            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n\n')+'UserName:'+email+('\n')+'Password:'+password+ +('\n')+ 'Thanks and regards.'+('\n\n')+' HR Operations.'
             
         };
          // console.log(details.title,details.description+"notice details")
@@ -317,6 +317,33 @@ module.exports.addnotice=((req,res)=>{
         "msg":"addnotice data",
         "data":data
       })
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user:'sandeep.reddy@zyclyx.com',
+          pass: 'cweaaodfhejidcga'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'sampathkumar0078@gmail.com',
+        to: 'umeshrapolu29@gmail.com',
+        subject: 'Notific',
+        
+        
+        text: 'Dear '+name+','+('\n\n')+'Your leave request has been '+status+'.'+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',
+        // attachments: [{ filename: resume, content: fs.createReadStream(`./uploads/images/${resume}`) }]
+        
+    };
+      //console.log(details.title,details.description+"notice details")
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent for update leave status: ' + info.response);
+          res.send("success")
+        }
+      });
     }
     else{
       res.json({

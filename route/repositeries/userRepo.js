@@ -461,3 +461,11 @@ module.exports.storetoken=((fmail,string1,callback)=>{
 
 
 })
+module.exports.allholidays=(req,callback)=>{
+    holidayschema.find({}).then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+}

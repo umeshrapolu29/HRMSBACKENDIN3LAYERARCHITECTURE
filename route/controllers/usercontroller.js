@@ -102,4 +102,7 @@ route.post('/forgotpassword',upload.single('file'),(req,res)=>{
 route.post('/resetpassword',upload.single(),(req,res)=>{
   return userservice.resetpassword(req,res);
 })
+route.get('/allholidays',upload.single('file'),(req,res)=>{
+  return userservice.allholidays(req,res);
+})
  module.exports=route;

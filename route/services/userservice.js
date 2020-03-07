@@ -465,6 +465,7 @@ module.exports.getusernamesiprocurement=((req,res)=>{
 module.exports.updatestatusiprocuremnt=((req,res)=>{
   var TID=req.body.TID;
   var astatus=req.body.astatus;
+  var name=req.body.name;
   console.log(TID,astatus+"at service");
 
   userRepo.upadatestatusiprocurement({TID:TID},{astatus:astatus},(err,data)=>{
@@ -487,7 +488,7 @@ module.exports.updatestatusiprocuremnt=((req,res)=>{
         subject: 'Reimbursement status',
         
         
-        text: 'Dear '+TID+','+('\n')+'Your reimbursement request has been '+astatus+'.'+('\n')+'Thanks and regards.'+('\n')+'Zyclyx'+'.'
+        text: 'Dear '+name+','+('\n')+'Your reimbursement request has been '+astatus+'.'+('\n')+'Thanks and regards.'+('\n')+'Zyclyx'+'.'
         
     };
       //console.log(details.title,details.description+"notice details")
@@ -805,4 +806,21 @@ module.exports.uploadpayslips=((req,res)=>{
             "data":result
         })
      })
+    })
+    module.exports.allholidays=((req,res)=>{
+      userRepo.allholidays({},(err,data)=>{
+        if(data){
+          res.json({
+            "msg":"data Retrived",
+            "data":data
+          })
+        }
+        else{
+          res.json({
+            "msg":"data not Retrived",
+            "data":err
+          })
+        }
+      })
+
     })

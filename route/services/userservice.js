@@ -749,6 +749,7 @@ module.exports.uploadpayslips=((req,res)=>{
     console.log(string+"is")
     var string1=string;
     var fmail=req.body.fmail;
+    console.log(fmail+"at service")
     var  smtptransport=nodemailer.createTransport({
       service:'gmail',
       auth:{

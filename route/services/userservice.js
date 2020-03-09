@@ -188,17 +188,22 @@ var storage = multer.diskStorage({
   })
   module.exports.leaveupdate=((req,res)=>{
     var status=req.body.status;
+    var reason=req.body.reason
     var requestto=req.body.requestto
     var name=req.body.name;
-    console.log(requestto,name+"at service");
+    console.log(requestto,name,reason+"at service");
+
+  
     userRepo.leaveupdate({requestto:requestto},{status:status},(err,data)=>{
       if(data){
       res.json({
         "msg":"leavestatus Update",
-        "data":data
-        
+        "data":data 
 
       })
+
+    
+      if(status=="Approved"){
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -229,6 +234,43 @@ var storage = multer.diskStorage({
 
 
     }
+      
+      else {
+
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user:'sandeep.reddy@zyclyx.com',
+            pass: 'cweaaodfhejidcga'
+          }
+        });
+        
+        var mailOptions = {
+          from: 'sampathkumar0078@gmail.com',
+          to: 'umeshrapolu29@gmail.com',
+          subject: 'Leave status',
+          
+          
+          text: 'Dear '+name+','+('\n\n')+'Your leave request has been '+status+'.' +'Due to '+reason+'.'+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',
+          // attachments: [{ filename: resume, content: fs.createReadStream(`./uploads/images/${resume}`) }]
+          
+      };
+        //console.log(details.title,details.description+"notice details")
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent for update leave status: ' + info.response);
+            res.send("success")
+          }
+        });
+
+
+      }
+    }
+  
+
+
     else{
       res.json({
         "msg":"Leavestatus not updated"

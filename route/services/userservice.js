@@ -79,7 +79,8 @@ var storage = multer.diskStorage({
             subject: ' Registration Process',
             
             
-            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n\n')+'UserName:'+email+('\n')+'Password:'+password+('\n')+ 'Thanks and regards.'+('\n\n')+' HR Operations.'
+            text: 'Dear  '+firstname+','+('\n\n')+ 'Your succesfully register in HRMS portal.Please check below your username,password '+('\n\n')+'UserName:'+email+('\n')+'Password:'+password+('\n')+ 'Thanks and regards.'+('\n\n')+' HR Operations.'+('\n\n')+'Link:https://umeshrapolu29.github.io/hrms-employee/hrms-employee#/signin'
+            
             
         };
          // console.log(details.title,details.description+"notice details")

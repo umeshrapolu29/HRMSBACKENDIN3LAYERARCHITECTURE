@@ -42,7 +42,16 @@ var storage = multer.diskStorage({
       var lastname=req.body.lastname;
       var email=req.body.email;
        var password=req.body.password;
-        var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
+       if (req.file === undefined){
+        var file= 'https://hrmsbackend.herokuapp.com/images/'+'profile.jpg';
+       }
+       else{
+          var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
+
+       }
+        
+
+        console.log();
         // var img2=req.body.imageproduct;
         var DOJ=req.body.DOJ;
         var phonenumber=req.body.phonenumber;

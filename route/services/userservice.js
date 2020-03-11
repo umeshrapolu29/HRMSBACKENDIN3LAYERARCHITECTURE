@@ -151,7 +151,7 @@ var storage = multer.diskStorage({
     var todate=req.body.todate;
     var name=req.body.name;
     console.log(user,password+"user password");
-    console.log(reason,reqtype,requestto,fromdate,todate,emailto1+"at service");
+    console.log(reason,reqtype,requestto,fromdate,todate,emailto1,name+"at service");
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -163,7 +163,7 @@ var storage = multer.diskStorage({
     var mailOptions = {
       from: 'sampathkumar0078@gmail.com',
       to: 'umeshrapolu29@gmail.com',
-      subject: 'Leave request from '+requestto,
+      subject: 'Leave request from '+name,
       
       
       text: 'Dear  '+emailto1+','+('\n\n')+ 'Please grant me the '+reqtype+' leave for the reason of '+reason+' from the date '+fromdate+' to '+todate+'.'+('\n\n')+ 'Thanks and regards.'+('\n\n')+name+'.'

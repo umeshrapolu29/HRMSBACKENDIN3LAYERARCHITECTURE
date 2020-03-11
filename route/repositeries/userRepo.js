@@ -358,11 +358,11 @@ module.exports.attendence=(email,status,callback)=>{
     })
 
 }
-module.exports.admin=(firstname,lastname,email,password,callback)=>{
-    console.log(firstname,lastname,email,password+"at repo")
+module.exports.admin=(firstname,file,email,password,callback)=>{
+    console.log(firstname,file,email,password+"at repo")
     var reg=new adminschema({
         firstname:firstname.firstname,
-        lastname:lastname.lastname,
+        file:file.file,
         email:email.email,
         password:password.password
         

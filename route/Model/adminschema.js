@@ -3,7 +3,7 @@ var adminschema=mongoose.Schema;
 
 var adminschema=adminschema({
     firstname:{type:String},
-    lastname:{type:String},
+    file:{type:String},
     email:{type:String},
     password:{type:String}
     

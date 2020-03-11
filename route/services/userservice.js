@@ -364,6 +364,7 @@ module.exports.addnotice=((req,res)=>{
   var description=req.body.description;
   if (req.file === undefined){
     var file= 'https://hrmsbackend.herokuapp.com/images/'+'logo-2.jpg';
+     
    }
    else{
       var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
@@ -391,7 +392,7 @@ module.exports.addnotice=((req,res)=>{
         
         
         text: 'Dears, '+('\n\n')+'You have a new notification..!'+('\n\n')+description+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',
-         attachments: [{ filename: file, content: fs.createReadStream(`./uploads/images/${file}`) }]
+         
         
     };
       //console.log(details.title,details.description+"notice details")
@@ -741,11 +742,12 @@ module.exports.uploadpayslips=((req,res)=>{
   })
   module.exports.admin=((req,res)=>{
     var firstname=req.body.firstname;
-    var lastname=req.body.lastname;
+   
     var email=req.body.email;
     var password=req.body.password;
-    console.log(firstname,lastname,email,password+" at service")
-    userRepo.admin({firstname:firstname},{lastname:lastname},{email:email},{password:password},(err,data)=>{
+    var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
+    console.log(firstname,file,email,password+" at service")
+    userRepo.admin({firstname:firstname},{file:file},{email:email},{password:password},(err,data)=>{
       if(data){
         res.json({
           "msg":"admin register successfully",
@@ -761,6 +763,7 @@ module.exports.uploadpayslips=((req,res)=>{
     })
   })
   module.exports.adminlogin=((req,res)=>{
+   
     var email=req.body.email;
     var password=req.body.password;
     var pass;

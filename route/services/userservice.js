@@ -391,7 +391,7 @@ module.exports.addnotice=((req,res)=>{
         
         
         text: 'Dears, '+('\n\n')+'You have a new notification..!'+('\n\n')+description+('\n\n')+'Thanks and regards.'+('\n\n')+' HR Operations'+'.',
-        // attachments: [{ filename: resume, content: fs.createReadStream(`./uploads/images/${resume}`) }]
+         attachments: [{ filename: file, content: fs.createReadStream(`./uploads/images/${file}`) }]
         
     };
       //console.log(details.title,details.description+"notice details")

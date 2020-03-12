@@ -908,7 +908,7 @@ module.exports.uploadpayslips=((req,res)=>{
         }
     });
     var mailOption={
-        to:'umeshrapolu29@gmail.com',
+        to:'salma.k@zyclyx.com',
         from:fmail,
         subject:'reset password',
         text:'change password\n\n'+string,  

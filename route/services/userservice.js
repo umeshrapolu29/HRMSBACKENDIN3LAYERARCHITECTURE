@@ -745,7 +745,14 @@ module.exports.uploadpayslips=((req,res)=>{
    
     var email=req.body.email;
     var password=req.body.password;
-    var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
+    if (req.file === undefined){
+      var file= 'https://hrmsbackend.herokuapp.com/images/'+'logo-2.jpg';
+       
+     }
+     else{
+        var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
+  
+     }
     console.log(firstname,file,email,password+" at service")
     userRepo.admin({firstname:firstname},{file:file},{email:email},{password:password},(err,data)=>{
       if(data){

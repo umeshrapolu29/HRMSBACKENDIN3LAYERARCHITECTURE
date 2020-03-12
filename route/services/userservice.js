@@ -483,7 +483,7 @@ module.exports.addiprocurement=(req,res)=>{
         subject:'Reimbursement request from '+employeename+',',
         
         
-        text: 'Dear manager'+('\n')+'Please approve me the reimbursement request for the item is '+item+' for the purpose of '+description+' with the transaction id '+email+' and the amount of this item is '+amount+'.'+('\n')+'Thanks and regards.'+('\n')+employeename+'.'
+        text: 'Dear manager'+('\n')+'Please approve me the reimbursement request for the item is '+item+' for the purpose of '+description+' and the amount of this item is '+amount+'.'+('\n')+'Thanks and regards.'+('\n')+employeename+'.'
         
     };
       //console.log(details.title,details.description+"notice details")

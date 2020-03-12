@@ -163,7 +163,7 @@ var storage = multer.diskStorage({
     
     var mailOptions = {
       from: 'sampathkumar0078@gmail.com',
-      to: 'umeshrapolu29@gmail.com',
+      to: 'salma.k@zyclyx.com',
       subject: 'Leave request from '+name,
       
       
@@ -479,7 +479,7 @@ module.exports.addiprocurement=(req,res)=>{
       
       var mailOptions = {
         from: 'sampathkumar0078@gmail.com',
-        to: 'umeshrapolu29@gmail.com',
+        to: 'salma.k@zyclyx.com',
         subject:'Reimbursement request from '+employeename+',',
         
         

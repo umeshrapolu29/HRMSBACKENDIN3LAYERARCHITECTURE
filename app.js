@@ -10,7 +10,7 @@ const password = process.env.PASSWORD;
  var url=db.url
  var app=express();
  var route=express.Router();
- const PORT = process.env.PORT || 3000;
+ const PORT = process.env.PORT || 3001;
 var server = app.listen(PORT)
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use("/public", express.static('public'))

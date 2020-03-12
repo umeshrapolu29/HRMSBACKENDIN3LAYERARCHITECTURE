@@ -894,3 +894,82 @@ module.exports.uploadpayslips=((req,res)=>{
       })
 
     })
+    module.exports.adminforgotpassword=((req,res)=>{
+      string=randomstring.generate(7);
+      console.log(string+"is")
+      var string1=string;
+      var fmail=req.body.fmail;
+      console.log(fmail+"at service")
+      var  smtptransport=nodemailer.createTransport({
+        service:'gmail',
+        auth:{
+          user:'sandeep.reddy@zyclyx.com',
+          pass: 'cweaaodfhejidcga'
+        }
+    });
+    var mailOption={
+        to:'umeshrapolu29@gmail.com',
+        from:fmail,
+        subject:'reset password',
+        text:'change password\n\n'+string,  
+    };
+    smtptransport.sendMail(mailOption,function(err,data){
+        if(err){
+        console.log("mail not sent");
+        console.log(err);
+        }
+        else{
+            console.log("mail sent");
+            // res.json({
+            //     "msg":"Token Sent to Email",
+                
+            // })
+            console.log(string1 + "at service1")
+            userRepo.adminstoretoken({fmail:fmail},{string1:string1},(req,data)=>{
+                res.json({
+                    "msg":"password updated",
+                    "data":data
+                })
+            })
+      
+           
+         
+        }
+    })
+  
+    })
+    module.exports.adminresetpassword=((req,res)=>{
+      var token1=req.body.token1
+      var updatepassword=req.body.updatepassword
+       var fmail=req.body.fmail;
+      
+      
+    
+    
+      var string1=string;
+      console.log(fmail+"is")
+      console.log(token1,updatepassword ,fmail+ "at service")
+      userRepo.adminresetpassword({fmail:fmail},token1,{updatepassword:updatepassword},(req,result)=>{
+          res.json({
+              "msg":"password updated",
+              "data":result
+          })
+       })
+      })
+      module.exports.allholidays=((req,res)=>{
+        userRepo.allholidays({},(err,data)=>{
+          if(data){
+            res.json({
+              "msg":"data Retrived",
+              "data":data
+            })
+          }
+          else{
+            res.json({
+              "msg":"data not Retrived",
+              "data":err
+            })
+          }
+        })
+  
+      })

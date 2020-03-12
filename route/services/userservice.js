@@ -746,13 +746,13 @@ module.exports.uploadpayslips=((req,res)=>{
     var email=req.body.email;
     var password=req.body.password;
     if (req.file === undefined){
-      var file= 'https://hrmsbackend.herokuapp.com/images/'+'logo-2.jpg';
-       
-     }
-     else{
-        var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
-  
-     }
+    var file= 'https://hrmsbackend.herokuapp.com/images/'+'logo-2.jpg';
+     
+   }
+   else{
+      var file= 'https://hrmsbackend.herokuapp.com/images/'+ req.file.originalname;
+
+   }
     console.log(firstname,file,email,password+" at service")
     userRepo.admin({firstname:firstname},{file:file},{email:email},{password:password},(err,data)=>{
       if(data){
@@ -828,7 +828,7 @@ module.exports.uploadpayslips=((req,res)=>{
   });
   var mailOption={
       to:'umeshrapolu29@gmail.com',
-      from:'umeshrapolu29@gmail.com',
+      from:fmail,
       subject:'reset password',
       text:'change password\n\n'+string,  
   };

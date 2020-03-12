@@ -526,7 +526,8 @@ module.exports.updatestatusiprocuremnt=((req,res)=>{
   var TID=req.body.TID;
   var astatus=req.body.astatus;
   var name=req.body.name;
-  console.log(TID,astatus+"at service");
+  var iproemail=req.body.iproemail
+  console.log(TID,astatus,iproemail+"at service");
 
   userRepo.upadatestatusiprocurement({TID:TID},{astatus:astatus},(err,data)=>{
     if(data){
@@ -544,7 +545,7 @@ module.exports.updatestatusiprocuremnt=((req,res)=>{
       
       var mailOptions = {
         from: 'sampathkumar0078@gmail.com',
-        to: 'umeshrapolu29@gmail.com',
+        to: iproemail,
         subject: 'Reimbursement status',
         
         

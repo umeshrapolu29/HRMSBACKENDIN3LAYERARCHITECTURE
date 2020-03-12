@@ -111,4 +111,7 @@ route.post('/adminforgetpassword',upload.single('file'),(req,res)=>{
 route.post('/adminresetpassword',upload.single('file'),(req,res)=>{
   return userservice.adminresetpassword(req,res);
 })
+route.post('/deleteuser',upload.single('file'),(req,res)=>{
+  return userservice.deleteuser(req,res);
+})
  module.exports=route;

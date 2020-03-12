@@ -973,3 +973,21 @@ module.exports.uploadpayslips=((req,res)=>{
         })
   
       })
+      module.exports.deleteuser=((req,res)=>{
+        var id=req.body.id;
+        console.log(id+"at service")
+        userRepo.deleteuser({id:id},(err,data)=>{
+          if(data){
+            res.json({
+              "msg":"data Retrived",
+              "data":data
+            })
+          }
+          else{
+            res.json({
+              "msg":"data  not Retrived",
+              "data":err
+            })
+          }
+        })
+      })

@@ -531,3 +531,13 @@ module.exports.adminstoretoken=((fmail,string1,callback)=>{
 
 
 })
+module.exports.deleteuser=(id,callback)=>{
+    console.log(id+"at repo")
+    uploadschema.remove({"_id":id.id}).then(result=>{
+        callback(null,result);
+        console.log(result);
+    }).catch(error=>{
+        callback(null,error);
+    })
+    
+}

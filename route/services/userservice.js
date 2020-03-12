@@ -224,7 +224,7 @@ var storage = multer.diskStorage({
       
       var mailOptions = {
         from: 'sampathkumar0078@gmail.com',
-        to: 'umeshrapolu29@gmail.com',
+        to: requestto,
         subject: 'Leave status',
         
         
@@ -257,7 +257,7 @@ var storage = multer.diskStorage({
         
         var mailOptions = {
           from: 'sampathkumar0078@gmail.com',
-          to: 'umeshrapolu29@gmail.com',
+          to: requestto,
           subject: 'Leave status',
           
           

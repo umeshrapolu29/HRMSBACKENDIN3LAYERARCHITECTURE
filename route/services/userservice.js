@@ -201,7 +201,8 @@ var storage = multer.diskStorage({
     var reason=req.body.reason
     var requestto=req.body.requestto
     var name=req.body.name;
-    console.log(requestto,name,reason+"at service");
+    var email=req.body.email
+    console.log(requestto,name,reason,email+"at service");
 
   
     userRepo.leaveupdate({requestto:requestto},{status:status},(err,data)=>{
@@ -224,7 +225,7 @@ var storage = multer.diskStorage({
       
       var mailOptions = {
         from: 'sampathkumar0078@gmail.com',
-        to: requestto,
+        to: email,
         subject: 'Leave status',
         
         
@@ -257,7 +258,7 @@ var storage = multer.diskStorage({
         
         var mailOptions = {
           from: 'sampathkumar0078@gmail.com',
-          to: requestto,
+          to: email,
           subject: 'Leave status',
           
           

@@ -658,7 +658,7 @@ module.exports.uploadpayslips=((req,res)=>{
     
     var mailOptions = {
       from: 'sampathkumar0078@gmail.com',
-      to: 'umeshrapolu29@gmail.com',
+      to: email,
       subject: 'Uploaded Payslip',
       
       

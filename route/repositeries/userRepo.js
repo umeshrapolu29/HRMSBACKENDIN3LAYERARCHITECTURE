@@ -9,8 +9,8 @@ var payslipschema=require('../Model/payslipschema');
 var nodemailer=require('nodemailer');
 var attendenceschema=require('../Model/attendenceshema');
 var adminschema=require('../Model/adminschema');
-module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,gender,DOB,callback)=>{
-    console.log(firstname,lastname+"at repo")
+module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,gender,DOB,resgination,callback)=>{
+    console.log(firstname,lastname,resgination+"at repo")
     uploadschema.find({"email":{$ne:null}}).then(result=>{
         var today = new Date();
         var year = today.getFullYear();
@@ -31,7 +31,9 @@ module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,g
         phonenumber:phonenumber.phonenumber,
         gender:gender.gender,
         DOB:DOB.DOB,
-        fullid:fullid
+        resgination:resgination.resgination,
+        fullid:fullid,
+       
 
       
      
@@ -43,6 +45,7 @@ module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,g
     reg.save()
     .then(result=>{
         callback(null,result)
+        console.log(result);
     }).catch(error=>{
         callback(null,error)
     })

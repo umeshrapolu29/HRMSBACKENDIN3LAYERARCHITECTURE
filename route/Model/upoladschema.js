@@ -17,9 +17,11 @@ var uploadschema=uploadschema({
     DOJ:{type:String},
     DOB:{type:String},
     gender:{type:String},
+    
     fullid:{type:String},
     passwordtoken:{type:String},
-    
+    resgination:{type:String},
+   
    
       
 })

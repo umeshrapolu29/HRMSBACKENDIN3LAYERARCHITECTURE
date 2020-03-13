@@ -42,6 +42,7 @@ var storage = multer.diskStorage({
       var lastname=req.body.lastname;
       var email=req.body.email;
        var password=req.body.password;
+       
        if (req.file === undefined){
         var file= 'https://hrmsbackend.herokuapp.com/images/'+'logo-2.jpg';
        }
@@ -57,9 +58,10 @@ var storage = multer.diskStorage({
         var phonenumber=req.body.phonenumber;
         var gender=req.body.gender;
         var DOB=req.body.DOB;   
+        var resgination=req.body.resgination
 
-      console.log(lastname,firstname,password,gender,file,DOJ,DOB,phonenumber+"at service")
-      userRepo.upload({firstname:firstname},{lastname:lastname},{email:email},{password:password},{file:file},{DOJ:DOJ},{phonenumber:phonenumber},{gender:gender},{DOB:DOB},(err,data)=>{
+      console.log(lastname,firstname,password,gender,file,DOJ,DOB,phonenumber,resgination+"at service")
+      userRepo.upload({firstname:firstname},{lastname:lastname},{email:email},{password:password},{file:file},{DOJ:DOJ},{phonenumber:phonenumber},{gender:gender},{DOB:DOB},{resgination:resgination},(err,data)=>{
         if(data){
         res.json({
               "msg":"uploaded Successfull",

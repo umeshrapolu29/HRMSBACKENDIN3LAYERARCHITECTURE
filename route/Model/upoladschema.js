@@ -21,6 +21,8 @@ var uploadschema=uploadschema({
     fullid:{type:String},
     passwordtoken:{type:String},
     resgination:{type:String},
+    reportmanager:{type:String},
+    immediatereportmanager:{type:String},
    
    
       

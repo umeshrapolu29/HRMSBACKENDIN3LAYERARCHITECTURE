@@ -993,3 +993,180 @@ module.exports.uploadpayslips=((req,res)=>{
           }
         })
       })
+      module.exports.educational=((req,res)=>{
+        var empname=req.body.empname;
+        var tenth=req.body.tenth;
+        var intermediate=req.body.intermediate;
+        var degree=req.body.degree;
+        var pg=req.body.pg
+        console.log(tenth,intermediate,degree,pg+"at service")
+        userRepo.educational({empname:empname},{tenth:tenth},{intermediate:intermediate},{degree:degree},{pg:pg},(err,data)=>{
+          if(data){
+            res.json({
+              "msg":"data inserted",
+              "data":data
+            })
+            
+          }
+          else{
+            res.json({
+              "msg":"data  not inserted",
+              "data":err
+            })
+          }
+        })
+
+      })
+      module.exports.bankdetails=((req,res)=>{
+        var empname=req.body.empname;
+        var Accountholdername=req.body.Accountholdername;
+        var Accountnumber=req.body.Accountnumber;
+        var Bankname=req.body.Bankname;
+        var pannumber=req.body.pannumber
+        var branch=req.body.branch;
+        var IFSCcode=req.body.IFSCcode
+         console.log(Accountholdername,Accountnumber,Bankname,pannumber,branch,IFSCcode+"at service")
+        userRepo.bankdeatils({empname:empname},{Accountholdername:Accountholdername},{Accountnumber:Accountnumber},{Bankname:Bankname},{pannumber:pannumber},{branch:branch},{IFSCcode:IFSCcode},(err,data)=>{
+          if(data){
+            res.json({
+              "msg":"data inserted",
+              "data":data
+            })
+            console.log(data);
+            
+          }
+          else{
+            res.json({
+              "msg":"data  not inserted",
+              "data":err
+            })
+            console.log(data);
+          }
+        })
+
+      })
+      module.exports.companydetails=((req,res)=>{
+        var empname=req.body.empname;
+        var companyname=req.body.companyname;
+        var designation=req.body.designation;
+        var experiance=req.body.experiance;
+        
+        console.log(empname,companyname,designation,experiance+"at service")
+        userRepo.companydetails({empname:empname},{companyname:companyname},{designation:designation},{experiance:experiance},(err,data)=>{
+          if(data){
+            res.json({
+              "msg":"data inserted",
+              "data":data
+            })
+            
+          }
+          else{
+            res.json({
+              "msg":"data  not inserted",
+              "data":err
+            })
+          }
+        })
+
+      })
+      module.exports.personaldetails=((req,res)=>{
+        var empname=req.body.empname;
+        var primaryemailid=req.body.primaryemailid;
+        var secondaryemailid=req.body.secondaryemailid;
+        var gaurdain=req.body.gaurdain; 
+        var gaurdainnumber=req.body.gaurdainnumber
+        
+        console.log(empname,primaryemailid,secondaryemailid,gaurdain,gaurdainnumber+"at service")
+        userRepo.personaldetails({empname:empname},{primaryemailid:primaryemailid},{secondaryemailid:secondaryemailid},{gaurdain:gaurdain},{gaurdainnumber:gaurdainnumber},(err,data)=>{
+          if(data){
+            res.json({
+              "msg":"data inserted",
+              "data":data
+            })
+            
+          }
+          else{
+            res.json({
+              "msg":"data  not inserted",
+              "data":err
+            })
+          }
+        })
+
+      })
+      module.exports.geteducationaldetails=((req,res)=>{
+        var empname=req.body.empname;
+
+        userRepo.geteducationaldetails({empname:empname},(err,data)=>{
+          if(data){
+           res.json({
+             "msg":"get data",
+             "data":data
+           })
+
+          }
+          else{
+            res.json({
+              "msg":"get data",
+              "data":err
+            })
+          }
+        })
+      })
+      module.exports.getbankdetails=((req,res)=>{
+        var empname=req.body.empname;
+
+        userRepo.getbankldetails({empname:empname},(err,data)=>{
+          if(data){
+           res.json({
+             "msg":"get data",
+             "data":data
+           })
+
+          }
+          else{
+            res.json({
+              "msg":"get data",
+              "data":err
+            })
+          }
+        })
+      })
+      module.exports.getcompanydetails=((req,res)=>{
+        var empname=req.body.empname;
+
+        userRepo.getcompanydetails({empname:empname},(err,data)=>{
+          if(data){
+           res.json({
+             "msg":"get data",
+             "data":data
+           })
+
+          }
+          else{
+            res.json({
+              "msg":"get data",
+              "data":err
+            })
+          }
+        })
+      })
+      module.exports.getpersonaldetails=((req,res)=>{
+        var empname=req.body.empname;
+
+        userRepo.getpersonaldetails({empname:empname},(err,data)=>{
+          if(data){
+           res.json({
+             "msg":"get data",
+             "data":data
+           })
+
+          }
+          else{
+            res.json({
+              "msg":"get data",
+              "data":err
+            })
+          }
+        })
+      })

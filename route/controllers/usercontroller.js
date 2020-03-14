@@ -114,4 +114,28 @@ route.post('/adminresetpassword',upload.single('file'),(req,res)=>{
 route.post('/deleteuser',upload.single('file'),(req,res)=>{
   return userservice.deleteuser(req,res);
 })
+route.post('/educationdetails',upload.single('file'),(req,res)=>{
+  return userservice.educational(req,res);
+})
+route.post('/bankdetails',upload.single('file'),(req,res)=>{
+  return userservice.bankdetails(req,res);
+})
+route.post('/companydetails',upload.single('file'),(req,res)=>{
+  return userservice.companydetails(req,res);
+})
+route.post('/personaldetails',upload.single('file'),(req,res)=>{
+  return userservice.personaldetails(req,res);
+})
+route.post('/geteducationaldetails',upload.single('file'),(req,res)=>{
+  return userservice.geteducationaldetails(req,res);
+})
+route.post('/getbankdetails',upload.single('file'),(req,res)=>{
+  return userservice.getbankdetails(req,res);
+})
+route.post('/getcompanydetails',upload.single('file'),(req,res)=>{
+  return userservice.getcompanydetails(req,res);
+})
+route.post('/getpersonaldetails',upload.single('file'),(req,res)=>{
+  return userservice.getpersonaldetails(req,res);
+})
  module.exports=route;

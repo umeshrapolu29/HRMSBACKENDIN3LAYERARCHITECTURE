@@ -9,6 +9,10 @@ var payslipschema=require('../Model/payslipschema');
 var nodemailer=require('nodemailer');
 var attendenceschema=require('../Model/attendenceshema');
 var adminschema=require('../Model/adminschema');
+var educationalschema=require('../Model/educationalschema');
+var bankdetailsschema=require('../Model/bankdetailsschema');
+var companydetailsschema=require('../Model/companydetailsschema');
+ var personaldetailsschema=require('../Model/personaldetailschema');
 module.exports.upload=(firstname,lastname, email,password,file,DOJ,phonenumber,gender,DOB,resgination,callback)=>{
     console.log(firstname,lastname,resgination+"at repo")
     uploadschema.find({"email":{$ne:null}}).then(result=>{
@@ -327,8 +331,7 @@ payslipschema.find({$and:[{"email":email.email},{"month":month.month},{"year":ye
     callback(null,result);
     var file=result;
     console.log(file)
-    // var jsonObj = JSON.parse(file);
-    // console.log(jsonObj)
+
   
 
     console.log(result);
@@ -543,4 +546,180 @@ module.exports.deleteuser=(id,callback)=>{
         callback(null,error);
     })
     
+}
+
+module.exports.educational=(empname,tenth,intermediate,degree,pg,callback)=>{
+    console.log(tenth,intermediate,degree+"at repo")
+    educationalschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+        console.log(regid+"result is");
+   var reg=new educationalschema({
+         empname:empname.empname,
+        tenth:tenth.tenth,
+        intermediate:intermediate.intermediate,
+        degree:degree.degree,
+        pg:pg.pg,
+        rig:regid
+        
+
+      
+       
+    })
+    reg.save().then(result=>{
+        callback(null,result);
+        console.log(result)
+    }).catch(error=>{
+        console.log("error")
+        callback(null,error);
+        
+    })
+}).catch(error=>{
+    callback(null,error);
+})
+
+}
+module.exports.bankdeatils=(empname,Accountholdername,Accountnumber,Bankname,pannumber,branch,IFSCcode,callback)=>{
+     console.log(Accountholdername,Accountnumber,Bankname,pannumber,IFSCcode+"at repo")
+     bankdetailsschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+        console.log(regid+"result is");
+    
+   
+    var reg=new bankdetailsschema({
+        empname:empname.empname,
+        Accountholdername:Accountholdername.Accountholdername,
+        Accountnumber:Accountnumber.Accountnumber,
+        Bankname:Bankname.Bankname,
+        pannumber:pannumber.pannumber,
+        branch:branch.branch,
+        IFSCcode:IFSCcode.IFSCcode,
+        rig:regid
+    })
+    reg.save()
+    .then(result=>{
+        callback(null,result);
+      
+    }).catch(error=>{
+        console.log("error")
+        callback(null,error);
+        
+    })
+}).catch(error=>{
+    callback(null,error);
+})
+}
+module.exports.companydetails=(empname,companyname,designation,experiance,callback)=>{
+    console.log(empname,companyname,designation,experiance+"at repo")
+    companydetailsschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+        console.log(regid+"result is");
+   var reg=new companydetailsschema({
+    empname:empname.empname,
+    companyname:companyname.companyname,
+    designation:designation.designation,
+    experience:experiance.experiance,
+    rig:regid
+   })
+    reg.save().then(result=>{
+        callback(null,result);
+        console.log(result)
+    }).catch(error=>{
+        console.log("error")
+        callback(null,error);
+        
+    })
+}).catch(error=>{
+    callback(null,error);
+})
+
+}
+module.exports.personaldetails=(empname,primaryemailid,secondaryemailid,gaurdain,gaurdainnumber,callback)=>{
+    console.log(empname,primaryemailid,secondaryemailid,gaurdainnumber+"at repo")
+    personaldetailsschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+        console.log(regid+"result is");
+   var reg=new personaldetailsschema({
+    empname:empname.empname,
+    primaryemailid:primaryemailid.primaryemailid,
+    secondaryemailid:secondaryemailid.secondaryemailid,
+    gaurdain:gaurdain.gaurdain,
+    gaurdainnumber:gaurdainnumber.gaurdainnumber,
+    rig:regid
+   })
+    reg.save().then(result=>{
+        callback(null,result);
+        console.log(result)
+    }).catch(error=>{
+        console.log("error")
+        callback(null,error);
+        
+    })
+}).catch(error=>{
+    callback(null,error);
+})
+
+    
+
+}
+module.exports.geteducationaldetails=(empname,callback)=>{
+    educationalschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+         var rid=regid-1;
+        console.log(regid+"result is");
+    
+        educationalschema.findOne({'rig':{$eq:rid},"empname":empname.empname}).then(result=>{
+        callback(null,result);
+        console.log(result.data);
+    }).catch(error=>{
+        callback(null,error);
+    })
+}).catch(error=>{
+    callback(null,error);
+})
+
+}
+module.exports.getbankldetails=(empname,callback)=>{
+    bankdetailsschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+         var rid=regid-1;
+        console.log(regid+"result is");
+        bankdetailsschema.findOne({'rig':{$eq:rid},"empname":empname.empname}).then(result=>{
+        callback(null,result);
+        console.log(result.data);
+    }).catch(error=>{
+        callback(null,error);
+    })
+}).catch(error=>{
+    callback(null,error);
+})
+}
+module.exports.getcompanydetails=(empname,callback)=>{
+    companydetailsschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+         var rid=regid-1;
+        console.log(regid+"result is");
+        companydetailsschema.findOne({'rig':{$eq:rid},"empname":empname.empname}).then(result=>{
+        callback(null,result);
+        console.log(result.data);
+    }).catch(error=>{
+        callback(null,error);
+    })
+}).catch(error=>{
+    callback(null,error);
+})
+}
+module.exports.getpersonaldetails=(empname,callback)=>{
+    personaldetailsschema.find({"empname":{$ne:null}}).then(result=>{
+        var regid=Object.keys(result).length;
+         var rid=regid-1;
+        console.log(regid+"result is");
+        personaldetailsschema.findOne({'rig':{$eq:rid},"empname":empname.empname}).then(result=>{
+        callback(null,result);
+        console.log(result.data);
+    }).catch(error=>{
+        callback(null,error);
+    })
+}).catch(error=>{
+    callback(null,error);
+})
 }
